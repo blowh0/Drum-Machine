@@ -1,28 +1,29 @@
+import React from "react";
 import { AudioClip } from "./types";
 
 interface DrumProps {
   audioClip: AudioClip;
+  playSound: (e: React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
-const Drum = ({ audioClip }: DrumProps) => {
-  const playSound = (clip: AudioClip) => {
-    (document.getElementById(clip.keyTrigger) as HTMLAudioElement)
-      .play()
-      .catch(console.error);
-
-    document.getElementById("display")!.innerText = clip.description;
-  };
-
+const Drum: React.FC<DrumProps> = ({ audioClip, playSound }) => {
   return (
-    <button
+    <div
+      id={"drum-" + audioClip.keyTrigger}
       className="drum-pad"
-      id={`drum-${audioClip.keyTrigger}`}
-      onClick={() => playSound(audioClip)}
+      onClick={() => {
+        const audio = document.getElementById(audioClip.keyTrigger) as HTMLAudioElement;
+        audio.play().catch(console.error);
+        document.getElementById("display")!.innerText = audioClip.description;
+      }}
+      onKeyDown={playSound} // Trigger playSound when a key is pressed
+      tabIndex={0} // Make it focusable for accessibility
     >
-      <audio src={audioClip.url} id={audioClip.keyTrigger} className="clip" />
       {audioClip.keyTrigger}
-    </button>
+      <audio id={audioClip.keyTrigger} src={audioClip.url} />
+    </div>
   );
 };
 
 export default Drum;
+
