@@ -72,7 +72,7 @@ function App() {
           <Drum
             key={clip.keyTrigger}
             audioClip={clip}
-            playSound={playAudio} // Pass playSound to Drum component
+            playSound={playAudio}
           />
         ))}
       </div>

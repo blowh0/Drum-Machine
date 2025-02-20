@@ -20,7 +20,12 @@ const Drum: React.FC<DrumProps> = ({ audioClip, playSound }) => {
       tabIndex={0} // Make it focusable for accessibility
     >
       {audioClip.keyTrigger}
-      <audio id={audioClip.keyTrigger} src={audioClip.url} />
+      {/* Add an audio element with the corresponding ID, className, and URL */}
+      <audio
+        id={audioClip.keyTrigger}
+        className="clip"
+        src={audioClip.url}
+      />
     </div>
   );
 };
